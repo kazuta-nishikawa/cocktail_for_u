@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Note;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
+use App\Http\Requests\StoreNoteForm;
 
 
 
@@ -38,7 +38,7 @@ class NoteController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreNoteForm $request)
     {
         $note = new Note;
         $user_id = auth()->id();

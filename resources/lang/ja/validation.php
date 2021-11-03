@@ -117,9 +117,9 @@ return [
     */
 
     'attributes' => [
-        'password'=>'パスワード', //追記
-        'email'=>'メールアドレス', //追記
-        'caution'=>'注意事項', //追記
+        'cocktail_name'=>'カクテル名', //追記
+        'place'=>'場所', //追記
+        'memo'=>'メモ', //追記
     ],
 
 ];
