@@ -24,6 +24,7 @@ class CocktailController extends Controller
         $inputs = $request->all();
 
         $alcohol = null;
+        $input_alc = null;
         if(!empty($inputs['alcohol'])){
             $input_alc = $inputs['alcohol'];
                 // 低い
@@ -43,15 +44,16 @@ class CocktailController extends Controller
         }
 
         $base = null;
+        $input_base = null;
         if(!empty($inputs['base'])){
             $input_base = $inputs['base'];
-            $base = 'base='.$inputs['base'].'&';
+            $base = 'base='.$input_base.'&';
         }
         
         $limit = 'limit=100';
         $id = null;
         $method = "GET";
-        if(!empty($base) && !empty($alcohol) ){
+        if(!empty($base) || !empty($alcohol) ){
             $client = new Client();
             $url = "https://cocktail-f.com/api/v1/cocktails?". $alcohol.$base.$limit;
             
@@ -60,7 +62,8 @@ class CocktailController extends Controller
             $converted_json_to_arr = json_decode($json_data, true);
             $cocktails = $converted_json_to_arr['cocktails'];
             $id = array_rand($cocktails,1);
-            // dd($cocktails,$id);
+            $cocktail = $cocktails[$id];
+            $id = $cocktail['cocktail_id'];
         }else{
             // API接続準備 
             // 条件なしの場合
@@ -75,6 +78,7 @@ class CocktailController extends Controller
         $response = $client->request($method, $url);
         $json_data = $response->getBody();
         $converted_json_to_arr = json_decode($json_data, true);
+        
         $cocktail = $converted_json_to_arr['cocktail'];
         
         
